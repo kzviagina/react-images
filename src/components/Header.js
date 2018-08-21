@@ -27,7 +27,7 @@ function Header ({
 					className={css(classes.close)}
 					onClick={onClose}
 				>
-					{!!closeButton ? closeButton : (<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />)}
+					{!!closeButton ? closeButton() : (<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />)}
 				</button>
 			)}
 		</div>
