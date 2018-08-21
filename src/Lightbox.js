@@ -190,6 +190,7 @@ class Lightbox extends Component {
 				onClick={this.gotoPrev}
 				title={this.props.leftArrowTitle}
 				type="button"
+                customIcon={this.props.prevButton}
 			/>
 		);
 	}
@@ -203,6 +204,7 @@ class Lightbox extends Component {
 				onClick={this.gotoNext}
 				title={this.props.rightArrowTitle}
 				type="button"
+                customIcon={this.props.nextButton}
 			/>
 		);
 	}
@@ -239,8 +241,8 @@ class Lightbox extends Component {
 						{imageLoaded && this.renderFooter()}
 					</div>
 					{imageLoaded && this.renderThumbnails()}
-					{imageLoaded && (prevButton || this.renderArrowPrev())}
-					{imageLoaded && (nextButton ||  this.renderArrowNext())}
+					{imageLoaded && this.renderArrowPrev()}
+					{imageLoaded && this.renderArrowNext()}
 					{this.props.preventScroll && <ScrollLock />}
 				</div>
 			</Container>

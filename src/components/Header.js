@@ -22,15 +22,13 @@ function Header ({
 		<div className={css(classes.header)} {...props}>
 			{customControls ? customControls : <span />}
 			{!!showCloseButton && (
-				closeButton || (
-					<button
-						title={closeButtonTitle}
-						className={css(classes.close)}
-						onClick={onClose}
-					>
-                    	<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
-                	</button>
-				)
+				<button
+					title={closeButtonTitle}
+					className={css(classes.close)}
+					onClick={onClose}
+				>
+					{!!closeButton ? closeButton : (<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />)}
+				</button>
 			)}
 		</div>
 	);

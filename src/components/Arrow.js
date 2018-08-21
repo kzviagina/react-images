@@ -11,6 +11,7 @@ function Arrow ({
 	icon,
 	onClick,
 	size,
+    customIcon,
 	...props,
 },
 {
@@ -25,8 +26,8 @@ function Arrow ({
 			onClick={onClick}
 			onTouchEnd={onClick}
 			{...props}
-		>
-			<Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />
+		> {!!customIcon ? customIcon : <Icon fill={!!theme.arrow && theme.arrow.fill || defaults.arrow.fill} type={icon} />}
+
 		</button>
 	);
 }

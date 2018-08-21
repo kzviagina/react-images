@@ -337,7 +337,8 @@ function Arrow(_ref, _ref2) {
 	    icon = _ref.icon,
 	    onClick = _ref.onClick,
 	    size = _ref.size,
-	    props = objectWithoutProperties(_ref, ['direction', 'icon', 'onClick', 'size']);
+	    customIcon = _ref.customIcon,
+	    props = objectWithoutProperties(_ref, ['direction', 'icon', 'onClick', 'size', 'customIcon']);
 
 	var classes = noImportant.StyleSheet.create(deepMerge(defaultStyles$1, theme$$1));
 
@@ -349,7 +350,8 @@ function Arrow(_ref, _ref2) {
 			onClick: onClick,
 			onTouchEnd: onClick
 		}, props),
-		React__default.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
+		' ',
+		!!customIcon ? customIcon : React__default.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
 	);
 }
 
@@ -529,15 +531,15 @@ function Header(_ref, _ref2) {
 		'div',
 		_extends({ className: noImportant.css(classes.header) }, props),
 		customControls ? customControls : React__default.createElement('span', null),
-		!!showCloseButton && (closeButton || React__default.createElement(
+		!!showCloseButton && React__default.createElement(
 			'button',
 			{
 				title: closeButtonTitle,
 				className: noImportant.css(classes.close),
 				onClick: onClose
 			},
-			React__default.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
-		))
+			!!closeButton ? closeButton : React__default.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
+		)
 	);
 }
 
@@ -1203,7 +1205,8 @@ var Lightbox = function (_Component) {
 				icon: 'arrowLeft',
 				onClick: this.gotoPrev,
 				title: this.props.leftArrowTitle,
-				type: 'button'
+				type: 'button',
+				customIcon: this.props.prevButton
 			});
 		}
 	}, {
@@ -1216,7 +1219,8 @@ var Lightbox = function (_Component) {
 				icon: 'arrowRight',
 				onClick: this.gotoNext,
 				title: this.props.rightArrowTitle,
-				type: 'button'
+				type: 'button',
+				customIcon: this.props.nextButton
 			});
 		}
 	}, {
@@ -1226,9 +1230,7 @@ var Lightbox = function (_Component) {
 			    backdropClosesModal = _props2.backdropClosesModal,
 			    isOpen = _props2.isOpen,
 			    showThumbnails = _props2.showThumbnails,
-			    width = _props2.width,
-			    prevButton = _props2.prevButton,
-			    nextButton = _props2.nextButton;
+			    width = _props2.width;
 			var imageLoaded = this.state.imageLoaded;
 
 
@@ -1258,8 +1260,8 @@ var Lightbox = function (_Component) {
 						imageLoaded && this.renderFooter()
 					),
 					imageLoaded && this.renderThumbnails(),
-					imageLoaded && (prevButton || this.renderArrowPrev()),
-					imageLoaded && (nextButton || this.renderArrowNext()),
+					imageLoaded && this.renderArrowPrev(),
+					imageLoaded && this.renderArrowNext(),
 					this.props.preventScroll && React__default.createElement(ScrollLock, null)
 				)
 			);
