@@ -518,7 +518,8 @@ function Header(_ref, _ref2) {
 	    onClose = _ref.onClose,
 	    showCloseButton = _ref.showCloseButton,
 	    closeButtonTitle = _ref.closeButtonTitle,
-	    props = objectWithoutProperties(_ref, ['customControls', 'onClose', 'showCloseButton', 'closeButtonTitle']);
+	    closeButton = _ref.closeButton,
+	    props = objectWithoutProperties(_ref, ['customControls', 'onClose', 'showCloseButton', 'closeButtonTitle', 'closeButton']);
 
 	var classes = StyleSheet$1.create(deepMerge(defaultStyles$4, theme$$1));
 
@@ -526,7 +527,7 @@ function Header(_ref, _ref2) {
 		'div',
 		_extends({ className: css$1(classes.header) }, props),
 		customControls ? customControls : React.createElement('span', null),
-		!!showCloseButton && React.createElement(
+		!!showCloseButton && (closeButton || React.createElement(
 			'button',
 			{
 				title: closeButtonTitle,
@@ -534,7 +535,7 @@ function Header(_ref, _ref2) {
 				onClick: onClose
 			},
 			React.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
-		)
+		))
 	);
 }
 
@@ -1223,7 +1224,9 @@ var Lightbox = function (_Component) {
 			    backdropClosesModal = _props2.backdropClosesModal,
 			    isOpen = _props2.isOpen,
 			    showThumbnails = _props2.showThumbnails,
-			    width = _props2.width;
+			    width = _props2.width,
+			    prevButton = _props2.prevButton,
+			    nextButton = _props2.nextButton;
 			var imageLoaded = this.state.imageLoaded;
 
 
@@ -1253,8 +1256,8 @@ var Lightbox = function (_Component) {
 						imageLoaded && this.renderFooter()
 					),
 					imageLoaded && this.renderThumbnails(),
-					imageLoaded && this.renderArrowPrev(),
-					imageLoaded && this.renderArrowNext(),
+					imageLoaded && (prevButton || this.renderArrowPrev()),
+					imageLoaded && (nextButton || this.renderArrowNext()),
 					this.props.preventScroll && React.createElement(ScrollLock, null)
 				)
 			);
@@ -1277,7 +1280,9 @@ var Lightbox = function (_Component) {
 			var sizes = sourceSet ? '100vw' : null;
 
 			var thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
-			var heightOffset = this.theme.header.height + this.theme.footer.height + thumbnailsSize + this.theme.container.gutter.vertical + 'px';
+			var headerHeight = isNaN(parseInt(this.theme.header.height, 10)) ? 0 : this.theme.header.height;
+			var footerHeight = isNaN(parseInt(this.theme.footer.height, 10)) ? 0 : this.theme.footer.height;
+			var heightOffset = headerHeight + footerHeight + thumbnailsSize + this.theme.container.gutter.vertical + 'px';
 
 			return React.createElement(
 				'figure',
@@ -1323,14 +1328,16 @@ var Lightbox = function (_Component) {
 			    closeButtonTitle = _props5.closeButtonTitle,
 			    customControls = _props5.customControls,
 			    onClose = _props5.onClose,
-			    showCloseButton = _props5.showCloseButton;
+			    showCloseButton = _props5.showCloseButton,
+			    closeButton = _props5.closeButton;
 
 
 			return React.createElement(Header, {
 				customControls: customControls,
 				onClose: onClose,
 				showCloseButton: showCloseButton,
-				closeButtonTitle: closeButtonTitle
+				closeButtonTitle: closeButtonTitle,
+				closeButton: closeButton
 			});
 		}
 	}, {
@@ -1416,7 +1423,10 @@ Lightbox.propTypes = {
 	spinnerSize: PropTypes.number,
 	theme: PropTypes.object,
 	thumbnailOffset: PropTypes.number,
-	width: PropTypes.number
+	width: PropTypes.number,
+	prevButton: PropTypes.func,
+	nextButton: PropTypes.func,
+	closeButton: PropTypes.func
 };
 Lightbox.defaultProps = {
 	closeButtonTitle: 'Close (Esc)',

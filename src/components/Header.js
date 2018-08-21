@@ -11,6 +11,7 @@ function Header ({
 	onClose,
 	showCloseButton,
 	closeButtonTitle,
+    closeButton,
 	...props,
 }, {
 	theme,
@@ -21,13 +22,15 @@ function Header ({
 		<div className={css(classes.header)} {...props}>
 			{customControls ? customControls : <span />}
 			{!!showCloseButton && (
-				<button
-					title={closeButtonTitle}
-					className={css(classes.close)}
-					onClick={onClose}
-				>
-					<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
-				</button>
+				closeButton || (
+					<button
+						title={closeButtonTitle}
+						className={css(classes.close)}
+						onClick={onClose}
+					>
+                    	<Icon fill={!!theme.close && theme.close.fill || defaults.close.fill} type="close" />
+                	</button>
+				)
 			)}
 		</div>
 	);

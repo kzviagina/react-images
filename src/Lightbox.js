@@ -212,6 +212,8 @@ class Lightbox extends Component {
 			isOpen,
 			showThumbnails,
 			width,
+            prevButton,
+			nextButton
 		} = this.props;
 
 		const { imageLoaded } = this.state;
@@ -237,8 +239,8 @@ class Lightbox extends Component {
 						{imageLoaded && this.renderFooter()}
 					</div>
 					{imageLoaded && this.renderThumbnails()}
-					{imageLoaded && this.renderArrowPrev()}
-					{imageLoaded && this.renderArrowNext()}
+					{imageLoaded && (prevButton || this.renderArrowPrev())}
+					{imageLoaded && (nextButton ||  this.renderArrowNext())}
 					{this.props.preventScroll && <ScrollLock />}
 				</div>
 			</Container>
@@ -261,7 +263,9 @@ class Lightbox extends Component {
 		const sizes = sourceSet ? '100vw' : null;
 
 		const thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
-		const heightOffset = `${this.theme.header.height + this.theme.footer.height + thumbnailsSize
+		const headerHeight = isNaN(parseInt(this.theme.header.height, 10)) ? 0 : this.theme.header.height;
+		const footerHeight = isNaN(parseInt(this.theme.footer.height, 10)) ? 0 : this.theme.footer.height;
+		const heightOffset = `${headerHeight + footerHeight + thumbnailsSize
 			+ (this.theme.container.gutter.vertical)}px`;
 
 		return (
@@ -306,6 +310,7 @@ class Lightbox extends Component {
 			customControls,
 			onClose,
 			showCloseButton,
+			closeButton,
 		} = this.props;
 
 		return (
@@ -314,6 +319,7 @@ class Lightbox extends Component {
 				onClose={onClose}
 				showCloseButton={showCloseButton}
 				closeButtonTitle={closeButtonTitle}
+                closeButton={closeButton}
 			/>
 		);
 	}
@@ -398,6 +404,9 @@ Lightbox.propTypes = {
 	theme: PropTypes.object,
 	thumbnailOffset: PropTypes.number,
 	width: PropTypes.number,
+	prevButton: PropTypes.func,
+	nextButton: PropTypes.func,
+	closeButton: PropTypes.func,
 };
 Lightbox.defaultProps = {
 	closeButtonTitle: 'Close (Esc)',
