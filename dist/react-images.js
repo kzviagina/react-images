@@ -351,7 +351,7 @@ function Arrow(_ref, _ref2) {
 			onTouchEnd: onClick
 		}, props),
 		' ',
-		!!customIcon ? customIcon : React__default.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
+		!!customIcon ? customIcon() : React__default.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
 	);
 }
 
@@ -538,7 +538,7 @@ function Header(_ref, _ref2) {
 				className: noImportant.css(classes.close),
 				onClick: onClose
 			},
-			!!closeButton ? closeButton : React__default.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
+			!!closeButton ? closeButton() : React__default.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
 		)
 	);
 }

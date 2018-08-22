@@ -349,7 +349,7 @@ function Arrow(_ref, _ref2) {
 			onTouchEnd: onClick
 		}, props),
 		' ',
-		!!customIcon ? customIcon : React.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
+		!!customIcon ? customIcon() : React.createElement(Icon, { fill: !!theme$$1.arrow && theme$$1.arrow.fill || theme.arrow.fill, type: icon })
 	);
 }
 
@@ -536,7 +536,7 @@ function Header(_ref, _ref2) {
 				className: css$1(classes.close),
 				onClick: onClose
 			},
-			!!closeButton ? closeButton : React.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
+			!!closeButton ? closeButton() : React.createElement(Icon, { fill: !!theme$$1.close && theme$$1.close.fill || theme.close.fill, type: 'close' })
 		)
 	);
 }
